@@ -1,15 +1,39 @@
 import express from "express";
 
+const usersDB = new Map();
+
 const app = express();
+const bodyParser = express.json();
 
-app.get("/", (req, res) => {
+app.get("/user", (req, res) => {
   console.log(req.query);
-  res.end("Hello");
+
+  res.send([...usersDB.values()]);
 });
 
-app.get("/test", (req, res) => {
-  console.log(req.method);
-  res.send({ test: 123 });
+app.delete("/user", bodyParser, (req, res) => {
+  usersDB.has("user" + req.body.id);
+  usersDB.delete("user" + req.body.id);
+  res.send(/*  */);
 });
 
-export default app
+app.post("/user", bodyParser, (req, res) => {
+  console.log(req.body);
+
+  usersDB.set(`user${usersDB.size}`, req.body);
+
+  res.send(req.body);
+});
+
+app.put("/user", bodyParser, (req, res) => {
+  usersDB.get("user" + req.body.id);
+  usersDB.set("user" + req.body.id /* value */);
+  res.send(/*  */);
+});
+
+app.delete("/user", (req, res) => {
+  usersDB.has("user" + req.body.id);
+  usersDB.delete("user" + req.body.id);
+});
+
+export default app;
