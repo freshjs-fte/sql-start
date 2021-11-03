@@ -8,7 +8,7 @@ CREATE TABLE users (
 );
 /*  */
 DROP TABLE orders;
-/*  */
+/* 1 user : N orders */
 CREATE TABLE orders (
     id serial PRIMARY KEY,
     user_id int,
@@ -26,7 +26,7 @@ CREATE TABLE products (
     stock_quantity int NOT NULL
 );
 /*  */
-/* N : N */
+/* N orders : N products */
 DROP TABLE products_to_order;
 CREATE TABLE products_to_order (
     order_id int,
