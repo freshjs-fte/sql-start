@@ -12,7 +12,7 @@ CREATE TABLE phones (
 INSERT INTO phones
 (brand, model, price, stock_quantity)
 VALUES
-('Samsung', '1 model 1', 12434, 283),
+('Samsung', '1 model 25', 18313, 283),
 ('Iphone', '1 model 2', 3453, 547),
 ('Nokia', '1 model 3', 634, 949),
 ('Samsung', '1 model 4', 4567, 364),
@@ -46,14 +46,48 @@ VALUES
     Group by - группировка по критерию
  */
 
+
 /* 
-
     - общее кол-во телеф "на складе"
-    - сред цена всех телефонов
-    - сред цена каждого бренда
-    - сред цена на IPhone
-    - кол-во моделей каждого бренда
-    - общая стоимость модели, в диапазоне цен от 10к до 20к
-    - сред цена цена брендов Xiaomi, IPhone, Nokia
+*/
+    SELECT sum("stock_quantity") FROM phones;
 
+
+/*
+    - сред цена всех телефонов
+*/
+    SELECT avg("price") FROM phones;
+
+
+/*
+    - сред цена каждого бренда
+*/
+    SELECT avg("price"), "brand" FROM phones
+    GROUP BY "brand";
+
+
+/*
+    - сред цена на IPhone
+*/
+    SELECT avg("price") FROM phones
+    WHERE "brand" = 'Iphone';
+
+/*
+    - кол-во моделей каждого бренда
+*/
+    SELECT count(*), "brand" FROM phones
+    GROUP BY "brand";
+
+
+/*
+    - общая стоимость моделей, в диапазоне цен от 10к до 20к
  */
+ SELECT sum("price" * "stock_quantity") FROM phones
+ WHERE "price" BETWEEN 10000 AND 20000;
+/*
+    - сред цена цена брендов Xiaomi, IPhone, Nokia
+ */
+ SELECT avg("price"), brand
+ FROM phones
+ WHERE brand IN ('Xiaomi', 'Iphone', 'Nokia')
+ GROUP BY brand;
