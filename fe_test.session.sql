@@ -8,6 +8,7 @@ CREATE TABLE users (
     birthday date NOT NULL,
     "createdAt" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     height numeric(3, 2) NOT NULL
+    weight int
 );
 /* добавьте нового пользователя */
 INSERT INTO users (

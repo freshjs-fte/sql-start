@@ -31,6 +31,26 @@ FROM a
 EXCEPT
 SELECT "v2"
 FROM b;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*  */
 INSERT INTO orders ("userId")
 VALUES (4),
