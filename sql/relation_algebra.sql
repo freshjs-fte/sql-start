@@ -49,6 +49,31 @@ count(*) "Count orders", u.id "User ID", u.email
 FROM orders o
   JOIN users u ON o."userId" = u.id
 GROUP BY "User ID";
+/*  */
+INSERT INTO users (
+    "firstName",
+    "lastName",
+    email,
+    "isMale",
+    birthday,
+    height
+  )
+VALUES (
+    'Valeriy',
+    'Fotin',
+    'fedor1.fotin@example.com',
+    true,
+    '2001.01.05',
+    1.65
+  ),
+  (
+    'Viktor',
+    'Fotin',
+    'fedor2.fotin@example.com',
+    true,
+    '2001.01.05',
+    1.65
+  );
 
 
 /* все заказы бренда Samsung */
@@ -64,3 +89,27 @@ FROM phones_to_orders pto
 WHERE p.brand ~* 'SamsuNg'
 
 GROUP BY pto."orderId", p.brand;
+
+/* найдите колво заказов пользователей */
+/* LEFT JOIN */
+SELECT u.id "User id", o.id "Order id", o."userId"
+FROM users u 
+    LEFT JOIN orders o ON u.id = o."userId"
+WHERE o.id IS NULL
+GROUP BY u.id, o.id
+ORDER BY o.id; /* PK <- FK */
+
+
+/* найти id телефонов конкретного заказа с id 40 */
+SELECT p.id "Phone ID", p.model, pto."orderId" "Order ID"
+FROM phones p
+    JOIN phones_to_orders pto ON p.id = pto."phoneId"
+WHERE pto."orderId" = 40;
+
+/* найти email юзера конкретного заказа с id 80 */
+SELECT users.email
+FROM users
+    JOIN orders ON users.id =
+WHERE orders.id = 80;
+
+/* Кол-во товаров на складе для заказа с id 70 */
