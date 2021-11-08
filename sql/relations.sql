@@ -31,5 +31,22 @@ CREATE TABLE orders (
 CREATE TABLE phones_to_orders(
     order_id int REFERENCES orders(id),
     phone_id int REFERENCES phones(id),
+    -- если есть insertы пересоздайте и заполните данными
+    quantity int NOT NULL CHECK(quantity > 0),
     UNIQUE(order_id, phone_id)
 );
+
+ALTER TABLE phones_to_orders
+ADD COLUMN quantity int NOT NULL CHECK(quantity > 0);
+
+UPDATE phones_to_orders
+SET quantity = 235
+WHERE order_id % 2 = 1;
+
+UPDATE phones_to_orders
+SET quantity = 52
+WHERE order_id % 2 = 0;
+
+UPDATE phones_to_orders
+SET quantity = 146
+WHERE order_id % 3 = 0;
